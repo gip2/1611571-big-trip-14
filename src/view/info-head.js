@@ -1,11 +1,11 @@
-import {getMonthAndDay} from "./trip-event.js";
+import {getMonthAndDay} from './trip-event.js';
 const MAX_EVENTS_ITEMS = 3;
 
 const calculateInfoEvents = (events) => {
   const info = {
-    title: ``,
-    date: ``,
-    cost: 0.0
+    title: '',
+    date: '',
+    cost: 0.0,
   };
   if (!events || !events.length) {
     return info;
@@ -14,11 +14,11 @@ const calculateInfoEvents = (events) => {
   if (events.length > MAX_EVENTS_ITEMS) {
     info.title = `${events[0].destination}  &mdash; ... &mdash;  ${events[events.length - 1].destination}`;
   } else {
-    info.title = events.map((event)=>event.destination).join(` &mdash;`);
+    info.title = events.map((event)=>event.destination).join(' &mdash;');
   }
 
-  let dateBegin = getMonthAndDay(events[0].dateBegin);
-  let dateEnd = getMonthAndDay(events[events.length - 1].dateEnd);
+  const dateBegin = getMonthAndDay(events[0].dateBegin);
+  const dateEnd = getMonthAndDay(events[events.length - 1].dateEnd);
   if (dateBegin === dateEnd) {
     info.date = dateBegin;
   } else {

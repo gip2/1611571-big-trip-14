@@ -9,22 +9,22 @@ const hoursInDay = 24;
 const minutesInDay = hoursInDay * minutesInHour;
 
 const durationTemplate = (date1, date2) => {
-  let durationMinutes = Math.floor((date2 - date1) / msecInMinute);
-  let days = Math.floor(durationMinutes / minutesInDay);
-  let hours = Math.floor((durationMinutes - days * minutesInDay) / minutesInHour);
-  let minutes = durationMinutes - days * minutesInDay - hours * minutesInHour;
+  const durationMinutes = Math.floor((date2 - date1) / msecInMinute);
+  const days = Math.floor(durationMinutes / minutesInDay);
+  const hours = Math.floor((durationMinutes - days * minutesInDay) / minutesInHour);
+  const minutes = durationMinutes - days * minutesInDay - hours * minutesInHour;
   if (days > 0) {
-    return String(days) + `D ` + hours + `H ` + minutes + `M`;
+    return String(days) + 'D ' + hours + 'H ' + minutes + 'M';
   }
   if (hours > 0) {
-    return String(hours) + `H ` + minutes + `M`;
+    return String(hours) + 'H ' + minutes + 'M';
   }
-  return String(minutes) + `M`;
+  return String(minutes) + 'M';
 };
 
 const createOffersListTemplate = (offers) => {
   if (!offers) {
-    return ``;
+    return '';
   }
   const liString = offers.reduce((accumulator, element) => {
     const {title, price} = element;
@@ -33,14 +33,14 @@ const createOffersListTemplate = (offers) => {
         +€&nbsp;
         <span class="event__offer-price">${price}</span>
       </li>`;
-  }, ``);
+  }, '');
   return `<ul class="event__selected-offers">${liString}</ul>`;
 };
 
 export const createTripEventTemplate = ({
-  dateBegin, typeIconSrc, typeText, destination, dateEnd, price, offers, favority
+  dateBegin, typeIconSrc, typeText, destination, dateEnd, price, offers, favority,
 }) => {
-  const favorityClass = favority ? `event__favorite-btn--active` : `event__favorite-btn`;
+  const favorityClass = favority ? 'event__favorite-btn--active' : 'event__favorite-btn';
 
   return `<div class="event">
     <time class="event__date" datetime=${dateBegin}>${getMonthAndDay(dateBegin)}</time>

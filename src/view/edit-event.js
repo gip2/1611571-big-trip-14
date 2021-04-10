@@ -1,25 +1,25 @@
-import {EVENT_TYPE_LIST} from "../mock/travel.js";
-import {EVENT_DESTINATION_LIST} from "../mock/travel.js";
+import {EVENT_TYPE_LIST} from '../mock/travel.js';
+import {EVENT_DESTINATION_LIST} from '../mock/travel.js';
 
 const createEventTypeGroup = (eventTypes, event) => {
   return eventTypes.reduce((accumulator, element) => {
     const {type, text} = element;
     return accumulator + `<div class="event__type-item">
-              <input id="event-type-${type}-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="${type}" ${(type === event.type) ? `checked` : ``}>
+              <input id="event-type-${type}-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="${type}" ${(type === event.type) ? 'checked' : ''}>
               <label class="event__type-label  event__type-label--${type}" for="event-type-${type}-1">${text}</label>
             </div>
     `;
-  }, ``);
+  }, '');
 };
 
 const createDestinationGroup = (eventDestinations) => {
   return eventDestinations.reduce((accumulator, element) => {
     return accumulator + `<option value="${element}"></option>`;
-  }, ``);
+  }, '');
 };
 
 const createDateTimeString = (date) => {
-  let s = ``;
+  let s = '';
   if (date !== undefined) {
     s = `${date.getDate()}/${(date.getMonth() + 1)}/${String(date.getFullYear()).slice(2, 4)} ${String(date.toTimeString()).slice(0, 5)}`;
   }
@@ -31,7 +31,7 @@ const createEventOfferSelector = (offers) => {
     const {type, title, price, checked} = offer;
     return accumulator + `
     <div class="event__offer-selector">
-        <input class="event__offer-checkbox  visually-hidden" id="event-offer-${type}-1" type="checkbox" name="event-offer-${type}"${checked ? `checked=""` : ` `}>
+        <input class="event__offer-checkbox  visually-hidden" id="event-offer-${type}-1" type="checkbox" name="event-offer-${type}"${checked ? 'checked=""' : ' '}>
         <label class="event__offer-label" for="event-offer-${type}-1">
           <span class="event__offer-title">Add ${title}</span>
           +€&nbsp;
@@ -39,7 +39,7 @@ const createEventOfferSelector = (offers) => {
         </label>
     </div>
     `;
-  }, ``);
+  }, '');
   return `<section class="event__section  event__section--offers">
     <h3 class="event__section-title  event__section-title--offers">Offers</h3>    
     <div class="event__available-offers">
@@ -51,7 +51,7 @@ const createEventOfferSelector = (offers) => {
 const createPhotoContainerTemplate = (photos) => {
   const photosTape = photos.reduce((accumulator, element) => {
     return accumulator + `<img class="event__photo" src="${element}" alt="Event photo">`;
-  }, ``);
+  }, '');
 
   return `<div class="event__photos-container">
     <div class="event__photos-tape">
@@ -109,12 +109,12 @@ export const createEditEventTemplate = (event) => {
       <button class="event__reset-btn" type="reset">Cancel</button>
     </header>
     <section class="event__details">
-      ${(event.hasOwnProperty(`offers`) !== false) ? createEventOfferSelector(offers) : ``}
+      ${(event.offers !== undefined) ? createEventOfferSelector(offers) : ''}
       <section class="event__section  event__section--destination">
         ${(destinationDescription.length > 0) ? `<h3 class="event__section-title  event__section-title--destination">Destination</h3>
-        <p class="event__destination-description">${destinationDescription}</p>` : ``}
+        <p class="event__destination-description">${destinationDescription}</p>` : ''}
 
-        ${(event.hasOwnProperty(`photos`) !== false) ? createPhotoContainerTemplate(photos) : ``}
+        ${(event.photos !== undefined) ? createPhotoContainerTemplate(photos) : ''}
         
       </section>
     </section>

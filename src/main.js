@@ -8,7 +8,7 @@ import {createTripEventTemplate} from './view/trip-event.js';
 import {createTripEventListTemplate} from './view/trip-event-list.js';
 import {createEditEventTemplate} from './view/edit-event.js';
 
-import {Event} from "./mock/travel.js";
+import {Event} from './mock/travel.js';
 
 const render = (container, template, place = 'beforeend') => {
   container.insertAdjacentHTML(place, template);
