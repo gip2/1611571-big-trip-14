@@ -44,6 +44,7 @@ const calculateInfoEvents = (events) => {
 export const createInfoHeadTemplate = (events) => {
   const info = calculateInfoEvents(events);
   const {title, date, cost} = info;
+  //debugger;
   return `<section class="trip-main__trip-info  trip-info">
     <div class="trip-info__main">
       <h1 class="trip-info__title">${title}</h1>

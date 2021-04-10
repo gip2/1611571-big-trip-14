@@ -96,8 +96,8 @@ const eventDestinationDescriptonGen = () => {
 };
 
 const eventDestinationPhotoGen = () => {
-  //const s = String(Math.random());
-  return 'http://picsum.photos/248/152?r=${s}';
+  const s = String(Math.random());
+  return `http://picsum.photos/248/152?r=${s}`;
 };
 
 const createEventPhotos = () => {

@@ -9,6 +9,7 @@ import {createTripEventListTemplate} from './view/trip-event-list.js';
 import {createEditEventTemplate} from './view/edit-event.js';
 
 import {Event} from './mock/travel.js';
+import { debug } from 'webpack';
 
 const render = (container, template, place = 'beforeend') => {
   container.insertAdjacentHTML(place, template);
@@ -19,7 +20,7 @@ for (let index = 0; index < EVENT_NUM; index++) {
   events.push(new Event());
 }
 // console.log(events);
-
+//debug;
 const siteTripMainElement = document.querySelector('.trip-main');
 const siteMenuElement = document.querySelector('#menu');
 const siteFiltersElement = document.querySelector('#filters');
