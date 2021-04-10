@@ -1,12 +1,59 @@
-export const createInfoHeadTemplate = () =>
-  `<section class="trip-main__trip-info  trip-info">
-    <div class="trip-info__main">
-      <h1 class="trip-info__title">Amsterdam — Chamonix — Geneva</h1>
+import {getMonthAndDay} from './trip-event.js';
+const MAX_EVENTS_ITEMS = 3;
 
-      <p class="trip-info__dates">Mar 18&nbsp;—&nbsp;20</p>
+const calculateInfoEvents = (events) => {
+  const info = {
+    title: '',
+    date: '',
+    cost: 0.0,
+  };
+  if (!events || !events.length) {
+    return info;
+  }
+
+  if (events.length > MAX_EVENTS_ITEMS) {
+    info.title = `${events[0].destination}  &mdash; ... &mdash;  ${events[events.length - 1].destination}`;
+  } else {
+    info.title = events.map((event)=>event.destination).join(' &mdash;');
+  }
+
+  const dateBegin = getMonthAndDay(events[0].dateBegin);
+  const dateEnd = getMonthAndDay(events[events.length - 1].dateEnd);
+  if (dateBegin === dateEnd) {
+    info.date = dateBegin;
+  } else {
+    if (dateBegin.slice(0, 3) === dateEnd.slice(0, 3)) {
+      info.date = `${dateBegin}&nbsp;&mdash;&nbsp;${dateEnd.slice(4)}`;
+    } else {
+      info.date = `${dateBegin}&nbsp;&mdash;&nbsp;${dateEnd}`;
+    }
+  }
+  info.cost = events.reduce((accumulator, event) => {
+    const {price, offers} = event;
+    accumulator += price;
+    if (offers !== undefined) {
+      accumulator = offers.reduce((acc, offer) => {
+        return acc + offer.checked ? offer.price : 0;
+      }, accumulator);
+    }
+    return accumulator;
+  }, 0);
+  return info;
+};
+
+export const createInfoHeadTemplate = (events) => {
+  const info = calculateInfoEvents(events);
+  const {title, date, cost} = info;
+  //debugger;
+  return `<section class="trip-main__trip-info  trip-info">
+    <div class="trip-info__main">
+      <h1 class="trip-info__title">${title}</h1>
+
+      <p class="trip-info__dates">${date}</p>
     </div>
 
     <p class="trip-info__cost">
-      Total: €&nbsp;<span class="trip-info__cost-value">1230</span>
+      Total: €&nbsp;<span class="trip-info__cost-value">${cost}</span>
     </p>
   </section>`;
+};
