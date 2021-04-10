@@ -1,3 +1,42 @@
+export const getMonthAndDay = (date) => date.toDateString().slice(4, 10).toUpperCase();
+const getTime = (date) => date.toTimeString().slice(0, 5);
+
+const msecInSecond = 1000;
+const secInMin = 60;
+const msecInMinute = secInMin * msecInSecond;
+const minutesInHour = 60;
+const hoursInDay = 24;
+const minutesInDay = hoursInDay * minutesInHour;
+
+const durationTemplate = (date1, date2) => {
+  let durationMinutes = Math.floor((date2 - date1) / msecInMinute);
+  let days = Math.floor(durationMinutes / minutesInDay);
+  let hours = Math.floor((durationMinutes - days * minutesInDay) / minutesInHour);
+  let minutes = durationMinutes - days * minutesInDay - hours * minutesInHour;
+  if (days > 0) {
+    return String(days) + `D ` + hours + `H ` + minutes + `M`;
+  }
+  if (hours > 0) {
+    return String(hours) + `H ` + minutes + `M`;
+  }
+  return String(minutes) + `M`;
+};
+
+const createOffersListTemplate = (offers) => {
+  if (!offers) {
+    return ``;
+  }
+  const liString = offers.reduce((accumulator, element) => {
+    const {title, price} = element;
+    return accumulator + `<li class="event__offer">
+        <span class="event__offer-title">${title}</span>
+        +€&nbsp;
+        <span class="event__offer-price">${price}</span>
+      </li>`;
+  }, ``);
+  return `<ul class="event__selected-offers">${liString}</ul>`;
+};
+
 export const createTripEventTemplate = () =>
   `<div class="event">
     <time class="event__date" datetime="2019-03-18">MAR 18</time>
