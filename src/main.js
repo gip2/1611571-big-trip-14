@@ -7,9 +7,7 @@ import {createSortTemplate} from './view/sort.js';
 import {createTripEventTemplate} from './view/trip-event.js';
 import {createTripEventListTemplate} from './view/trip-event-list.js';
 import {createEditEventTemplate} from './view/edit-event.js';
-
 import {Event} from './mock/travel.js';
-import { debug } from 'webpack';
 
 const render = (container, template, place = 'beforeend') => {
   container.insertAdjacentHTML(place, template);
@@ -20,13 +18,13 @@ for (let index = 0; index < EVENT_NUM; index++) {
   events.push(new Event());
 }
 // console.log(events);
-//debug;
+//debugger;
 const siteTripMainElement = document.querySelector('.trip-main');
 const siteMenuElement = document.querySelector('#menu');
 const siteFiltersElement = document.querySelector('#filters');
 const siteTripEventsHead = document.querySelector('#tripEvents');
 const siteTripEventsSection = document.querySelector('.trip-events');
-render(siteTripMainElement, createInfoHeadTemplate(), 'afterbegin');
+render(siteTripMainElement, createInfoHeadTemplate(events), 'afterbegin');
 render(siteMenuElement, createMenuTemplate(), 'afterend');
 render(siteFiltersElement, createFiltersTemplate(), 'afterend');
 render(siteTripEventsHead, createSortTemplate(), 'afterend');
