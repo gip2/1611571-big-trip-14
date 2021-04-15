@@ -1,3 +1,4 @@
+import {createElement} from '../utils.js';
 import {EVENT_TYPE_LIST} from '../mock/travel.js';
 import {EVENT_DESTINATION_LIST} from '../mock/travel.js';
 
@@ -24,7 +25,7 @@ const createDateTimeString = (date) => {
     s = `${date.getDate()}/${(date.getMonth() + 1)}/${String(date.getFullYear()).slice(2, 4)} ${String(date.toTimeString()).slice(0, 5)}`;
   }
   return s;
-};// 19/03/19 00:00
+};
 
 const createEventOfferSelector = (offers) => {
   const offerSelectorItems = offers.reduce((accumulator, offer) => {
@@ -60,7 +61,7 @@ const createPhotoContainerTemplate = (photos) => {
   </div>`;
 };
 
-export const createEditEventTemplate = (event) => {
+const createEditEventTemplate = (event) => {
   const {typeIconSrc, typeText, destination, destinationDescription, dateBegin, dateEnd, price, offers, photos} = event;
   return `<form class="event event--edit" action="#" method="post">
     <header class="event__header">
@@ -120,3 +121,22 @@ export const createEditEventTemplate = (event) => {
     </section>
   </form>`;
 };
+
+export default class EditEventView {
+  constructor(event) {
+    this._element = null;
+    this._event = event;
+  }
+  getTemplate() {
+    return createEditEventTemplate(this._event);
+  }
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+    return this._element;
+  }
+  removeElement() {
+    this._element = null;
+  }
+}

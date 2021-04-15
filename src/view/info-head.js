@@ -1,3 +1,4 @@
+import {createElement} from '../utils.js';
 import {getMonthAndDay} from './trip-event.js';
 const MAX_EVENTS_ITEMS = 3;
 
@@ -41,10 +42,9 @@ const calculateInfoEvents = (events) => {
   return info;
 };
 
-export const createInfoHeadTemplate = (events) => {
+const createInfoHeadTemplate = (events) => {
   const info = calculateInfoEvents(events);
   const {title, date, cost} = info;
-  //debugger;
   return `<section class="trip-main__trip-info  trip-info">
     <div class="trip-info__main">
       <h1 class="trip-info__title">${title}</h1>
@@ -57,3 +57,22 @@ export const createInfoHeadTemplate = (events) => {
     </p>
   </section>`;
 };
+
+export default class InfoHeadView {
+  constructor(events) {
+    this._element = null;
+    this._events = events;
+  }
+  getTemplate() {
+    return createInfoHeadTemplate(this._events);
+  }
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+    return this._element;
+  }
+  removeElement() {
+    this._element = null;
+  }
+}

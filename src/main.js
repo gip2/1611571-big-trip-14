@@ -1,6 +1,6 @@
 const EVENT_NUM = 10;
 
-import {createMenuTemplate} from './view/menu.js';
+import {createMenuTemplate} from './view/controlBoard.js';
 import {createInfoHeadTemplate} from './view/info-head.js';
 import {createFiltersTemplate} from './view/filters.js';
 import {createSortTemplate} from './view/sort.js';
