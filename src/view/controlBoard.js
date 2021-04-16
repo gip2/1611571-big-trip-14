@@ -6,7 +6,7 @@ const createControlBoardTemplate = () =>
       <a class="trip-tabs__btn" href="#">Stats</a>
   </nav>`;
 
-export default class ControlBoardView {
+export default class ControlBoard {
   constructor() {
     this._element = null;
   }
