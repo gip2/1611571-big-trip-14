@@ -1,4 +1,4 @@
-const EVENT_NUM = 10;
+const EVENT_NUM = 0;
 const KeyCode = {
   ESCAPE: 'Escape',
   ESC: 'Esc',
@@ -11,6 +11,7 @@ import SortView from './view/sort.js';
 import TripEventView from './view/trip-event.js';
 import TripEventListView from './view/trip-event-list.js';
 import EditEventView from './view/edit-event.js';
+import EmptyListViews from './view/trip-empty.js';
 import {Event} from './mock/travel.js';
 import {renderElement, RenderPosition} from './utils.js';
 
@@ -18,7 +19,6 @@ const events = [];
 for (let index = 0; index < EVENT_NUM; index++) {
   events.push(new Event());
 }
-
 const siteTripMainElement = document.querySelector('.trip-main');
 const siteMenuElement = document.querySelector('#menu');
 const siteFiltersElement = document.querySelector('#filters');
@@ -64,13 +64,16 @@ const renderTripEvent = (tripEventListElement, event) => {
   renderElement(tripEventListElement, eventComponent.getElement(), RenderPosition.BEFOREEND);
 };
 
-renderElement(siteTripMainElement, new InfoHeadView(events).getElement(), RenderPosition.AFTERBEGIN);
+const infoHeadComponent = new InfoHeadView(events);
+renderElement(siteTripMainElement, infoHeadComponent.getElement(), RenderPosition.AFTERBEGIN);
 renderElement(siteMenuElement, new ControlBoardView().getElement(), RenderPosition.AFTEREND);
 renderElement(siteFiltersElement, new FilterView().getElement(), RenderPosition.AFTEREND);
 renderElement(siteTripEventsHead, new SortView().getElement(), RenderPosition.AFTEREND);
-
 const tripEventListComponent = new TripEventListView();
 renderElement(siteTripEventsSection, tripEventListComponent.getElement(), RenderPosition.BEFOREEND);
-
 events.forEach((event) => renderTripEvent(tripEventListComponent.getElement(), event));
-
+if (events.length === 0) {
+  siteTripMainElement.removeChild(infoHeadComponent.getElement());
+  siteTripEventsHead.nextSibling.remove();
+  renderElement(siteTripEventsSection, new EmptyListViews().getElement(), RenderPosition.AFTEREND);
+}
