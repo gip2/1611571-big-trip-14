@@ -1,3 +1,4 @@
+import {createElement} from '../utils.js';
 export const getMonthAndDay = (date) => date.toDateString().slice(4, 10).toUpperCase();
 const getTime = (date) => date.toTimeString().slice(0, 5);
 
@@ -37,7 +38,7 @@ const createOffersListTemplate = (offers) => {
   return `<ul class="event__selected-offers">${liString}</ul>`;
 };
 
-export const createTripEventTemplate = ({
+const createTripEventTemplate = ({
   dateBegin, typeIconSrc, typeText, destination, dateEnd, price, offers, favority,
 }) => {
   const favorityClass = favority ? 'event__favorite-btn--active' : 'event__favorite-btn';
@@ -72,3 +73,22 @@ export const createTripEventTemplate = ({
     </button>
   </div>`;
 };
+
+export default class TripEvent {
+  constructor(event) {
+    this._element = null;
+    this._event = event;
+  }
+  getTemplate() {
+    return createTripEventTemplate(this._event);
+  }
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+    return this._element;
+  }
+  removeElement() {
+    this._element = null;
+  }
+}
