@@ -4,7 +4,7 @@ const createTripEventListTemplate = () =>
   `<ul class="trip-events__list">
   </ul>`;
 
-export default class TripEventListView {
+export default class TripEventList {
   constructor() {
     this._element = null;
   }

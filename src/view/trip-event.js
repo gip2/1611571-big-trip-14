@@ -74,7 +74,7 @@ const createTripEventTemplate = ({
   </div>`;
 };
 
-export default class TripEventView {
+export default class TripEvent {
   constructor(event) {
     this._element = null;
     this._event = event;

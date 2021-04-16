@@ -58,7 +58,7 @@ const createInfoHeadTemplate = (events) => {
   </section>`;
 };
 
-export default class InfoHeadView {
+export default class InfoHead {
   constructor(events) {
     this._element = null;
     this._events = events;

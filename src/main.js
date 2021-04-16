@@ -13,13 +13,11 @@ import TripEventListView from './view/trip-event-list.js';
 import EditEventView from './view/edit-event.js';
 import {Event} from './mock/travel.js';
 import {renderElement, RenderPosition} from './utils.js';
-//import { debug } from 'webpack';
 
 const events = [];
 for (let index = 0; index < EVENT_NUM; index++) {
   events.push(new Event());
 }
-// console.log(events);
 
 const siteTripMainElement = document.querySelector('.trip-main');
 const siteMenuElement = document.querySelector('#menu');
@@ -28,7 +26,6 @@ const siteTripEventsHead = document.querySelector('#tripEvents');
 const siteTripEventsSection = document.querySelector('.trip-events');
 
 const renderTripEvent = (tripEventListElement, event) => {
-  //debugger;
   const eventComponent = new TripEventView(event);
   const eventEditComponent = new EditEventView(event);
 
@@ -69,20 +66,11 @@ const renderTripEvent = (tripEventListElement, event) => {
 
 renderElement(siteTripMainElement, new InfoHeadView(events).getElement(), RenderPosition.AFTERBEGIN);
 renderElement(siteMenuElement, new ControlBoardView().getElement(), RenderPosition.AFTEREND);
-
 renderElement(siteFiltersElement, new FilterView().getElement(), RenderPosition.AFTEREND);
-
 renderElement(siteTripEventsHead, new SortView().getElement(), RenderPosition.AFTEREND);
 
 const tripEventListComponent = new TripEventListView();
 renderElement(siteTripEventsSection, tripEventListComponent.getElement(), RenderPosition.BEFOREEND);
-//debugger;
+
 events.forEach((event) => renderTripEvent(tripEventListComponent.getElement(), event));
 
-
-// import flatpickr from "flatpickr";
-// // Otherwise, selectors are also supported
-// flatpickr("#myID", {
-//   minDate: "today",
-//   maxDate: new Date().fp_incr(14) // 14 days from now
-// });
