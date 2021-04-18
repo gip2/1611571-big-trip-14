@@ -23,10 +23,7 @@ export const render = (container, child, place) => {
       container.append(child);
       break;
     case RenderPosition.AFTEREND:
-      container.after(child);
-      // console.log(`element.outerHTML: `, element.outerHTML)
-      // container.insertAdjacentHTML(place, element.outerHTML);// `ПРИВЕТ`);
-      break;
+      container.after(child);break;
   }
 };
 
@@ -42,12 +39,11 @@ export const replace = (newChild, oldChild) => {
   const parent = oldChild.parentElement;
 
   if (parent === null || oldChild === null || newChild === null) {
-    throw new Error(`Can't replace unexisting elements`);
+    throw new Error('Can\'t replace unexisting elements');
   }
 
   parent.replaceChild(newChild, oldChild);
 };
-
 
 export const renderTemplate = (container, template, place = 'beforeend') => {
   container.insertAdjacentHTML(place, template);
