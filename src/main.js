@@ -13,7 +13,7 @@ import TripEventListView from './view/trip-event-list.js';
 import EditEventView from './view/edit-event.js';
 import EmptyListViews from './view/trip-empty.js';
 import {Event} from './mock/travel.js';
-import {render, RenderPosition} from './utils/render.js';
+import {render, replace, RenderPosition} from './utils/render.js';
 
 const events = [];
 for (let index = 0; index < EVENT_NUM; index++) {
@@ -30,11 +30,11 @@ const renderTripEvent = (tripEventListElement, event) => {
   const eventEditComponent = new EditEventView(event);
 
   const replaceEditToEvent = () => {
-    tripEventListElement.replaceChild(eventComponent.getElement(), eventEditComponent.getElement());
+    replace(eventComponent, eventEditComponent);
   };
 
   const replaceEventToEdit = () => {
-    tripEventListElement.replaceChild(eventEditComponent.getElement(), eventComponent.getElement());
+    replace(eventEditComponent, eventComponent);
   };
 
   const onEscKeyDown = (evt) => {
