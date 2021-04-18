@@ -134,7 +134,6 @@ export default class EditEventView extends AbstractView {
     return createEditEventTemplate(this._event);
   }
   _rollupClickHandler() {
-    // evt.preventDefault();
     this._callback.rollupClick();
   }
   setRollupClickHandler(callback) {

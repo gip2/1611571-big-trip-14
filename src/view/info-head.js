@@ -51,7 +51,6 @@ const createInfoHeadTemplate = (events) => {
 
       <p class="trip-info__dates">${date}</p>
     </div>
-
     <p class="trip-info__cost">
       Total: €&nbsp;<span class="trip-info__cost-value">${cost}</span>
     </p>

@@ -85,7 +85,6 @@ export default class TripEventView extends AbstractView {
     return createTripEventTemplate(this._event);
   }
   _editClickHandler() {
-    // evt.preventDefault();
     this._callback.editClick();
   }
   setEditClickHandler(callback) {
