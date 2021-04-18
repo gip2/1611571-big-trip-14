@@ -1,4 +1,4 @@
-import {createElement} from '../utils.js';
+import {createElement} from '../utils/render.js';
 import {getMonthAndDay} from './trip-event.js';
 const MAX_EVENTS_ITEMS = 3;
 

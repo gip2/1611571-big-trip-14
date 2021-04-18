@@ -1,4 +1,4 @@
-import {createElement} from '../utils.js';
+import {createElement} from '../utils/render.js';
 import {EVENT_TYPE_LIST} from '../mock/travel.js';
 import {EVENT_DESTINATION_LIST} from '../mock/travel.js';
 

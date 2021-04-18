@@ -1,4 +1,4 @@
-import {createElement} from '../utils.js';
+import {createElement} from '../utils/render.js';
 export const getMonthAndDay = (date) => date.toDateString().slice(4, 10).toUpperCase();
 const getTime = (date) => date.toTimeString().slice(0, 5);
 
