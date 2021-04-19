@@ -1,6 +1,6 @@
-import {createElement} from '../utils.js';
-import {EVENT_TYPE_LIST} from '../mock/travel.js';
 import {EVENT_DESTINATION_LIST} from '../mock/travel.js';
+import {EVENT_TYPE_LIST} from '../mock/travel.js';
+import AbstractView from './abstract.js';
 
 const createEventTypeGroup = (eventTypes, event) => {
   return eventTypes.reduce((accumulator, element) => {
@@ -123,21 +123,29 @@ const createEditEventTemplate = (event) => {
   </form>`;
 };
 
-export default class EditEvent {
+export default class EditEventView extends AbstractView {
   constructor(event) {
-    this._element = null;
+    super();
     this._event = event;
+    this._rollupClickHandler = this._rollupClickHandler.bind(this);
+    this._submitHandler = this._submitHandler.bind(this);
   }
   getTemplate() {
     return createEditEventTemplate(this._event);
   }
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-    return this._element;
+  _rollupClickHandler() {
+    this._callback.rollupClick();
   }
-  removeElement() {
-    this._element = null;
+  setRollupClickHandler(callback) {
+    this._callback.rollupClick = callback;
+    this.getElement().querySelector('.event__rollup-btn').addEventListener('click', this._rollupClickHandler);
+  }
+  _submitHandler(evt) {
+    evt.preventDefault();
+    this._callback.submit();
+  }
+  setSubmitHandler(callback) {
+    this._callback.submit = callback;
+    this.getElement().addEventListener('submit', this._submitHandler);
   }
 }

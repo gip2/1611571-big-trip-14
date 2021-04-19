@@ -1,4 +1,4 @@
-import {createElement} from '../utils.js';
+import AbstractView from './abstract.js';
 import {getMonthAndDay} from './trip-event.js';
 const MAX_EVENTS_ITEMS = 3;
 
@@ -51,28 +51,18 @@ const createInfoHeadTemplate = (events) => {
 
       <p class="trip-info__dates">${date}</p>
     </div>
-
     <p class="trip-info__cost">
       Total: €&nbsp;<span class="trip-info__cost-value">${cost}</span>
     </p>
   </section>`;
 };
 
-export default class InfoHead {
+export default class InfoHeadView extends AbstractView {
   constructor(events) {
-    this._element = null;
+    super();
     this._events = events;
   }
   getTemplate() {
     return createInfoHeadTemplate(this._events);
-  }
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-    return this._element;
-  }
-  removeElement() {
-    this._element = null;
   }
 }
