@@ -65,12 +65,14 @@ const renderTripEvent = (tripEventListElement, event) => {
 };
 
 const infoHeadComponent = new InfoHeadView(events);
-render(siteTripMainElement, infoHeadComponent.getElement(), RenderPosition.AFTERBEGIN);
-render(siteMenuElement, new ControlBoardView().getElement(), RenderPosition.AFTEREND);
-render(siteFiltersElement, new FilterView().getElement(), RenderPosition.AFTEREND);
-render(siteTripEventsHead, new SortView().getElement(), RenderPosition.AFTEREND);
+render(siteTripMainElement, infoHeadComponent.getElement(), RenderPosition.AFTERBEGIN);//document.querySelector
+render(siteMenuElement, new ControlBoardView().getElement(), RenderPosition.AFTEREND);//document.querySelector
+render(siteFiltersElement, new FilterView().getElement(), RenderPosition.AFTEREND);//document.querySelector
+render(siteTripEventsHead, new SortView().getElement(), RenderPosition.AFTEREND);//document.querySelector
 const tripEventListComponent = new TripEventListView();
-render(siteTripEventsSection, tripEventListComponent.getElement(), RenderPosition.BEFOREEND);
+render(siteTripEventsSection, tripEventListComponent.getElement(), RenderPosition.BEFOREEND);//document.querySelector
+
+
 events.forEach((event) => renderTripEvent(tripEventListComponent.getElement(), event));
 if (events.length === 0) {
   siteTripMainElement.removeChild(infoHeadComponent.getElement());

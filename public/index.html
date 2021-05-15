@@ -14,20 +14,22 @@
       <div class="page-body__container  page-header__container">
         <img class="page-header__logo" src="img/logo.png" width="42" height="42" alt="Trip logo">
 
-        <div class="trip-main">
+        <div class="trip-main"> <!-- siteTripMainElement = document.querySelector('.trip-main'); -->
           <!-- Маршрут и стоимость -->
-
+          <!-- 1) InfoHeadView(events) RenderPosition.AFTERBEGIN -->
           <div class="trip-main__trip-controls  trip-controls">
             <div class="trip-controls__navigation">
-              <h2 class="visually-hidden" id="menu">Switch trip view</h2>
+              <h2 class="visually-hidden" id="menu">Switch trip view</h2><!-- siteMenuElement = document.querySelector('#menu'); -->
               <!-- Меню -->
+              <!-- 2) ControlBoardView(), RenderPosition.AFTEREND -->
             </div>
 
             <div class="trip-controls__filters">
-              <h2 class="visually-hidden" id="filters">Filter events</h2>
+              <h2 class="visually-hidden" id="filters">Filter events</h2><!-- siteFiltersElement = document.querySelector('#filters') -->
               <!-- Фильтры -->
+              <!-- 3) FilterView(), RenderPosition.AFTEREND -->
             </div>
-          </div>
+          </div> <!-- конец siteTripMainElement -->
 
           <button class="trip-main__event-add-btn  btn  btn--big  btn--yellow" type="button">New event</button>
         </div>
@@ -35,13 +37,15 @@
     </header>
     <main class="page-body__page-main  page-main">
       <div class="page-body__container">
-          <section class="trip-events">
-            <h2 class="visually-hidden" id="tripEvents">Trip events</h2>
-
-            <!-- Сортировка -->
+          <section class="trip-events"> <!-- siteTripEventsSection = document.querySelector('.trip-events') -->
+            <h2 class="visually-hidden" id="tripEvents">Trip events</h2><!-- siteTripEventsHead = document.querySelector('#tripEvents'); -->
+            <!-- Сортировка -->   
+            <!-- 4) SortView(), RenderPosition.AFTEREND -->
 
             <!-- Контент -->
-          </section>
+            <!-- 5) siteTripEventsSection, TripEventListView(), RenderPosition.BEFOREEND-->
+            <!-- 6) TripEventListView().getElement(), TripEventView(event),EditEventView(event), RenderPosition.BEFOREEND-->
+          </section>  <!-- конец siteTripEventsSection -->
       </div>
     </main>
     <script src="./bundle.js"></script>
