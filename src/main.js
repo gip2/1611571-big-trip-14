@@ -1,19 +1,22 @@
 const EVENT_NUM = 10;
-const KeyCode = {
-  ESCAPE: 'Escape',
-  ESC: 'Esc',
-};
+// const KeyCode = {
+//   ESCAPE: 'Escape',
+//   ESC: 'Esc',
+// };
 
 import ControlBoardView from './view/controlBoard.js';
-import InfoHeadView from './view/info-head.js';
+// import InfoHeadView from './view/info-head.js';
 import FilterView from './view/filters.js';
 import SortView from './view/sort.js';
-import TripEventView from './view/trip-event.js';
-import TripEventListView from './view/trip-event-list.js';
-import EditEventView from './view/edit-event.js';
-import EmptyListViews from './view/trip-empty.js';
+// import TripEventView from './view/trip-event.js';
+// import TripEventListView from './view/trip-event-list.js';
+// import EditEventView from './view/edit-event.js';
+// import EmptyListViews from './view/trip-empty.js';
 import {Event} from './mock/travel.js';
-import {render, replace, RenderPosition} from './utils/render.js';
+import {render, /*replace, */RenderPosition} from './utils/render.js';
+
+
+import TripPresenter from './presenter/trip.js';
 
 const events = [];
 for (let index = 0; index < EVENT_NUM; index++) {
@@ -25,7 +28,15 @@ const siteFiltersElement = document.querySelector('#filters');
 const siteTripEventsHead = document.querySelector('#tripEvents');
 const siteTripEventsSection = document.querySelector('.trip-events');
 
-const renderTripEvent = (tripEventListElement, event) => {
+const tripPresenter = new TripPresenter(siteTripMainElement,siteTripEventsSection);
+
+render(siteMenuElement, new ControlBoardView().getElement(), RenderPosition.AFTEREND);//document.querySelector
+render(siteFiltersElement, new FilterView().getElement(), RenderPosition.AFTEREND);//document.querySelector
+render(siteTripEventsHead, new SortView().getElement(), RenderPosition.AFTEREND);//document.querySelector
+
+tripPresenter.init(events);
+
+/*const renderTripEvent = (tripEventListElement, event) => {
   const eventComponent = new TripEventView(event);
   const eventEditComponent = new EditEventView(event);
 
@@ -78,4 +89,4 @@ if (events.length === 0) {
   siteTripMainElement.removeChild(infoHeadComponent.getElement());
   siteTripEventsHead.nextSibling.remove();
   render(siteTripEventsSection, new EmptyListViews().getElement(), RenderPosition.AFTEREND);
-}
+}*/
