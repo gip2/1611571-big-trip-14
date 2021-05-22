@@ -13,9 +13,10 @@ const KeyCode = {
 };
 
 export default class TripEvent {
-  constructor(TripEventListContainer, changeMode) {
+  constructor(TripEventListContainer, changeData) {
     this._tripEventListContainer = TripEventListContainer;
-    this._changeMode = changeMode;
+    this._changeData = changeData;
+    //this._changeMode = changeMode;
     this._eventPresenter = {};
     this._tripEventComponent = null;
     this._tripEventEditComponent = null;
@@ -23,6 +24,7 @@ export default class TripEvent {
     this._handleEditClick = this._handleEditClick.bind(this);
     this._handleFormSubmit = this._handleFormSubmit.bind(this);
     this._escKeyDownHandler = this._escKeyDownHandler.bind(this);
+    this._favoriteHandler = this._favoriteHandler.bind(this);
   }
 
   init(event) {
@@ -35,7 +37,10 @@ export default class TripEvent {
     this._tripEventEditComponent = new EditEventView(event);
 
     this._tripEventComponent.setEditClickHandler(this._handleEditClick);
+    this._tripEventComponent.setFavoriteClickHandler(this._favoriteHandler);
     this._tripEventEditComponent.setSubmitHandler(this._handleFormSubmit);
+    this._tripEventEditComponent.setRollupClickHandler(this._handleFormSubmit);
+
 
     if (prevTripEventComponent === null ||  prevEventEditComponent === null) {
       render(this._tripEventListContainer, this._tripEventComponent, RenderPosition.BEFOREEND);
@@ -69,14 +74,6 @@ export default class TripEvent {
     this._mode = Mode.EDITING;
   }
 
-  _onEscKeyDownHandler(evt){
-    if (evt.key === KeyCode.ESCAPE || evt.key === KeyCode.ESC) {
-      evt.preventDefault();
-      this._replaceEditToEvent();
-      this._tripEventListContainer.ownerDocument.removeEventListener('keydown', this._onEscKeyDown);
-    }
-  }
-
   _handleEditClick() {
     this._replaceEventToEdit();
   }
@@ -94,45 +91,19 @@ export default class TripEvent {
     }
   }
 
-
-
-
-  _renderTripEvent() {
-    const eventComponent = new TripEventView(this._tripEvent);
-    const eventEditComponent = new EditEventView(this._tripEvent);
-
-    const replaceEditToEvent = () => {
-      replace(eventComponent, eventEditComponent);
-    };
-
-    const replaceEventToEdit = () => {
-      replace(eventEditComponent, eventComponent);
-    };
-
-    const onEscKeyDown = (evt) => {
-      if (evt.key === KeyCode.ESCAPE || evt.key === KeyCode.ESC) {
-        evt.preventDefault();
-        replaceEditToEvent();
-        document.removeEventListener('keydown', onEscKeyDown);
-      }
-    };
-
-    eventComponent.getElement().querySelector('.event__rollup-btn').addEventListener('click', () => {
-      replaceEventToEdit();
-      document.addEventListener('keydown', onEscKeyDown);
-    });
-
-    eventEditComponent.getElement().querySelector('.event__rollup-btn').addEventListener('click', () => {
-      replaceEditToEvent();
-      document.removeEventListener('keydown', onEscKeyDown);
-    });
-
-    eventEditComponent.getElement().addEventListener('submit', (evt) => {
-      evt.preventDefault();
-      replaceEditToEvent();
-      document.removeEventListener('keydown', onEscKeyDown);
-    });
-
-    render(this._tripEventListContainer, eventComponent.getElement(), RenderPosition.BEFOREEND);
+  _favoriteHandler(){
+    this._changeData(
+      Object.assign(
+        {},
+        this._tripEvent,
+        {
+          favority: !this._tripEvent.favority,
+        },
+      ),
+    );
   }
+
+  // _rollupBtnHandler(evt) {
+  //   this._replaceEditToEvent();
+  // }
 }

@@ -4,10 +4,10 @@ import FilterView from '../view/filters.js';
 import SortView from '../view/sort.js';
 import TripEventListView from '../view/trip-event-list.js';
 import EmptyListView from '../view/trip-empty.js';
-import {Event} from '../mock/travel.js';
-import {render, replace, RenderPosition} from '../utils/render.js';
+import {render, RenderPosition} from '../utils/render.js';
 
 import TripEventPresenter from './trip-event.js';
+import {updateItem} from '../utils/common.js';
 
 
 export default class Trip {
@@ -22,6 +22,10 @@ export default class Trip {
     this._SortBoardComponent = new SortView();
     this._tripEventListComponent = new TripEventListView();
     this._EmptyListComponent = new EmptyListView();
+
+    this._handleEventChange = this._handleEventChange.bind(this);
+
+    // this._handleFavoriteChange = this._handleFavoriteChange.bind(this);
   }
 
   init(events){
@@ -29,6 +33,16 @@ export default class Trip {
     this._renderEventList();
     this._renderTrip();
   }
+
+  // _handleFavoriteChange(tripEvent){
+  //   tripEvent.favority = !tripEvent.favority;
+  // }
+
+  _handleEventChange(event) {
+    this._tripEvents = updateItem(this._tripEvents, event);
+    this._tripEventPresenter[event.id].init(event);
+  }
+
 
   _renderInfoHead(events) {
     const infoHeadComponent = new InfoHeadView(events);
@@ -40,7 +54,7 @@ export default class Trip {
   }
 
   _renderEvent(event) {
-    const tripEventPresenter = new TripEventPresenter(this._tripEventListComponent);
+    const tripEventPresenter = new TripEventPresenter(this._tripEventListComponent, this._handleEventChange);
     tripEventPresenter.init(event);
     this._tripEventPresenter[event.id] = tripEventPresenter;
   }

@@ -80,6 +80,7 @@ export default class TripEventView extends AbstractView {
     super();
     this._event = events;
     this._editClickHandler = this._editClickHandler.bind(this);
+    this._favoriteClickHandler = this._favoriteClickHandler.bind(this);
   }
   getTemplate() {
     return createTripEventTemplate(this._event);
@@ -90,5 +91,12 @@ export default class TripEventView extends AbstractView {
   setEditClickHandler(callback) {
     this._callback.editClick = callback;
     this.getElement().querySelector('.event__rollup-btn').addEventListener('click', this._editClickHandler);
+  }
+  _favoriteClickHandler() {
+    this._callback.favoriteClick();
+  }
+  setFavoriteClickHandler(callback) {
+    this._callback.favoriteClick = callback;
+    this.getElement().querySelector('.event__favorite-btn').addEventListener('click', this._favoriteClickHandler);
   }
 }
