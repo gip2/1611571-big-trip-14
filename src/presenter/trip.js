@@ -1,7 +1,4 @@
-import ControlBoardView from '../view/controlBoard.js';
 import InfoHeadView from '../view/info-head.js';
-import FilterView from '../view/filters.js';
-import SortView from '../view/sort.js';
 import TripEventListView from '../view/trip-event-list.js';
 import EmptyListView from '../view/trip-empty.js';
 import {render, RenderPosition} from '../utils/render.js';
@@ -15,18 +12,12 @@ export default class Trip {
     this._infoHeadContainer = infoHeadContainer;
     this._tripContainer = tripContainer;
     this._tripEventPresenter = {};
-    //this._infoHeadComponent = new InfoHeadView(events);
-    this._controlBoardComponent = new ControlBoardView();
-    //this._infoHeadComponent = new InfoHeadView();
-    this._FilterComponent = new FilterView();
-    this._SortBoardComponent = new SortView();
     this._tripEventListComponent = new TripEventListView();
+    this._infoHeadComponent = new InfoHeadView();
     this._EmptyListComponent = new EmptyListView();
 
     this._handleEventChange = this._handleEventChange.bind(this);
     this._handleModeChange = this._handleModeChange.bind(this);
-
-    // this._handleFavoriteChange = this._handleFavoriteChange.bind(this);
   }
 
   init(events){
@@ -49,7 +40,8 @@ export default class Trip {
 
   _renderInfoHead(events) {
     const infoHeadComponent = new InfoHeadView(events);
-    render(this._infoHeadContainer, infoHeadComponent.getElement(), RenderPosition.AFTERBEGIN);
+    this._infoHeadComponent = infoHeadComponent;
+    render(this._infoHeadContainer, this._infoHeadComponent.getElement(), RenderPosition.AFTERBEGIN);
   }
 
   _renderEventList() {
@@ -68,13 +60,12 @@ export default class Trip {
 
   _renderNoEvents(){
     this._infoHeadContainer.removeChild(this._infoHeadComponent.getElement());
-    const siteTripEventsHead = this._tripContainer.firstChild();
+    const siteTripEventsHead = this._tripContainer.firstChild;
     siteTripEventsHead.nextSibling.remove();
     render(this._tripContainer, this._EmptyListComponent.getElement(), RenderPosition.AFTEREND);
   }
 
   _renderTrip(){
-    //debugger;
     this._renderInfoHead(this._tripEvents);
     this._renderEvents();
     if (this._tripEvents.length === 0) {

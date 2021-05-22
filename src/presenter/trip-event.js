@@ -6,7 +6,7 @@ const Mode = {
   DEFAULT: 'DEFAULT',
   EDITING: 'EDITING',
 };
-//import Trip from "./trip.js";
+
 const KeyCode = {
   ESCAPE: 'Escape',
   ESC: 'Esc',
@@ -57,7 +57,6 @@ export default class TripEvent {
 
     remove(prevTripEventComponent);
     remove(prevEventEditComponent);
-    //this._renderTripEvent();//render(this._tripEventListContainer, this._tripEventComponent, RenderPosition.BEFOREEND);
   }
 
   resetView() {
@@ -83,8 +82,7 @@ export default class TripEvent {
     this._replaceEventToEdit();
   }
 
-  _handleFormSubmit(/*event*/) {
-    //this._changeData(event);
+  _handleFormSubmit() {
     this._replaceEditToEvent();
   }
 
@@ -92,7 +90,7 @@ export default class TripEvent {
     if (evt.key === KeyCode.ESCAPE || evt.key === KeyCode.ESC) {
       evt.preventDefault();
       this._replaceEditToEvent();
-      document.removeEventListener('keydown', onEscKeyDown);
+      document.removeEventListener('keydown', this._escKeyDownHandler);
     }
   }
 
@@ -107,8 +105,4 @@ export default class TripEvent {
       ),
     );
   }
-
-  // _rollupBtnHandler(evt) {
-  //   this._replaceEditToEvent();
-  // }
 }
