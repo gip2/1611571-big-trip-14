@@ -2,10 +2,8 @@ const EVENT_NUM = 10;
 
 import ControlBoardView from './view/controlBoard.js';
 import FilterView from './view/filters.js';
-import SortView from './view/sort.js';
 import {Event} from './mock/travel.js';
 import {render, RenderPosition} from './utils/render.js';
-
 
 import TripPresenter from './presenter/trip.js';
 
@@ -19,10 +17,9 @@ const siteFiltersElement = document.querySelector('#filters');
 const siteTripEventsHead = document.querySelector('#tripEvents');
 const siteTripEventsSection = document.querySelector('.trip-events');
 
-const tripPresenter = new TripPresenter(siteTripMainElement,siteTripEventsSection);
+const tripPresenter = new TripPresenter(siteTripMainElement,siteTripEventsHead,siteTripEventsSection);
 
 render(siteMenuElement, new ControlBoardView().getElement(), RenderPosition.AFTEREND);//document.querySelector
 render(siteFiltersElement, new FilterView().getElement(), RenderPosition.AFTEREND);//document.querySelector
-render(siteTripEventsHead, new SortView().getElement(), RenderPosition.AFTEREND);//document.querySelector
 
 tripPresenter.init(events);
