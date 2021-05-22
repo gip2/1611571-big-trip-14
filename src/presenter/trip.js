@@ -24,6 +24,7 @@ export default class Trip {
     this._EmptyListComponent = new EmptyListView();
 
     this._handleEventChange = this._handleEventChange.bind(this);
+    this._handleModeChange = this._handleModeChange.bind(this);
 
     // this._handleFavoriteChange = this._handleFavoriteChange.bind(this);
   }
@@ -34,9 +35,11 @@ export default class Trip {
     this._renderTrip();
   }
 
-  // _handleFavoriteChange(tripEvent){
-  //   tripEvent.favority = !tripEvent.favority;
-  // }
+  _handleModeChange() {
+    Object
+      .values(this._tripEventPresenter)
+      .forEach((presenter) => presenter.resetView());
+  }
 
   _handleEventChange(event) {
     this._tripEvents = updateItem(this._tripEvents, event);
@@ -54,7 +57,7 @@ export default class Trip {
   }
 
   _renderEvent(event) {
-    const tripEventPresenter = new TripEventPresenter(this._tripEventListComponent, this._handleEventChange);
+    const tripEventPresenter = new TripEventPresenter(this._tripEventListComponent, this._handleEventChange, this._handleModeChange);
     tripEventPresenter.init(event);
     this._tripEventPresenter[event.id] = tripEventPresenter;
   }

@@ -13,10 +13,10 @@ const KeyCode = {
 };
 
 export default class TripEvent {
-  constructor(TripEventListContainer, changeData) {
+  constructor(TripEventListContainer, changeData, changeMode) {
     this._tripEventListContainer = TripEventListContainer;
     this._changeData = changeData;
-    //this._changeMode = changeMode;
+    this._changeMode = changeMode;
     this._eventPresenter = {};
     this._tripEventComponent = null;
     this._tripEventEditComponent = null;
@@ -60,10 +60,15 @@ export default class TripEvent {
     //this._renderTripEvent();//render(this._tripEventListContainer, this._tripEventComponent, RenderPosition.BEFOREEND);
   }
 
+  resetView() {
+    if (this._mode !== Mode.DEFAULT) {
+      this._replaceEditToEvent();
+    }
+  }
+
   _replaceEditToEvent(){
     replace(this._tripEventComponent, this._tripEventEditComponent);
     document.removeEventListener('keydown', this._escKeyDownHandler);
-    this._changeMode();
     this._mode = Mode.DEFAULT;
   }
 
