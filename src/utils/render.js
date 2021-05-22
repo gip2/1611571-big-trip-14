@@ -54,3 +54,12 @@ export const createElement = (template) => {
   newElement.innerHTML = template; // 2. берём HTML в виде строки и вкладываем в этот div-блок, превращая в DOM-элемент
   return newElement.firstChild; // 3. возвращаем этот DOM-элемент
 };
+
+export const remove = (component) => {
+  if (!(component instanceof Abstract)) {
+    throw new Error('Can remove only components');
+  }
+
+  component.getElement().remove();
+  component.removeElement();
+};

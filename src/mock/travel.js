@@ -1,6 +1,6 @@
-const PRICE_MIN = 10;
-const PRICE_MAX = 1000;
+import {nanoid} from 'nanoid';const PRICE_MIN = 10;
 
+const PRICE_MAX = 1000;
 
 export const EVENT_TYPE_LIST = [
   ['taxi', 'Taxi', 'img/icons/taxi.png'],
@@ -172,6 +172,7 @@ const findOffer = (type) => {
 
 export class Event {
   constructor() {
+    this.id = nanoid();
     this.dateBegin = getRandomDate();
     this.dateEnd = new Date(this.dateBegin.valueOf() + getRandomInteger(HOURS_DATE_END_MIN * MSEC_PER_HOUR, HOURS_DATE_END_MAX * MSEC_PER_HOUR));
     const type = getRandom(EVENT_TYPE_LIST);
